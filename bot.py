@@ -9,7 +9,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Привет! Я бот с ChatGPT. Напиши мне что-нибудь.")
+    await update.message.reply_text("Привет! Я бот с ChatGPT. Напиши свой вопрос.")
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_message = update.message.text
@@ -21,8 +21,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         bot_reply = response.choices[0].message.content
         await update.message.reply_text(bot_reply)
     except Exception as e:
-        await update.message.reply_text("Произошла ошибка. Попробуй позже.")
-        print("Ошибка:", e)
+        await update.message.reply_text("Ошибка при обращении к ChatGPT.")
+        print(f"Ошибка OpenAI: {e}")
 
 def main():
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
